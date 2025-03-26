@@ -1,0 +1,36 @@
+package com.example.pinunlockapp
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val etPin = findViewById<EditText>(R.id.etPin)
+        val btnUnlock = findViewById<Button>(R.id.btnUnlock)
+
+        val correctPin = "12345678"  // PIN yang benar
+
+        // Aksi ketika tombol unlock diklik
+        btnUnlock.setOnClickListener {
+            val enteredPin = etPin.text.toString()
+
+            if (enteredPin == correctPin) {
+                // PIN benar, buka layar berikutnya
+                val intent = Intent(this, WelcomeActivity::class.java)
+                startActivity(intent)
+                finish()  // Menutup aktivitas PIN
+            } else {
+                // PIN salah
+                Toast.makeText(this, "PIN salah. Coba lagi.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
